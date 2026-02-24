@@ -20,7 +20,7 @@ app.post('/api/forward-order', async (req, res) => {
     console.log('收到订单：', req.body);
 
     // 转发到目标网站的订单接收接口（替换为目标网站的API地址）
-    const targetApiUrl = 'https://目标网站域名/api/receive-order';
+    const targetApiUrl = 'https://www.maclazer.com/api/order/receive';
     const response = await axios.post(targetApiUrl, req.body, {
       // 目标网站接口的鉴权（如有）：如Token/密钥
       headers: {
