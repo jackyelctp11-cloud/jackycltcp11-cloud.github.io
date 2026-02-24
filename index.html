@@ -822,45 +822,28 @@
             radio.addEventListener('change', calculateTotalPrice);
         });
 
-        // 获取支付按钮
-        const payBtn = document.getElementById('pay-btn');
-        // 获取支付弹窗
-        const payModal = document.getElementById('pay-modal');
-        // 获取关闭弹窗按钮
-        const closeModal = document.getElementById('close-modal');
+// 替换原payBtn的点击事件（保留验证逻辑，修改提交逻辑）
+payBtn.addEventListener('click', () => {
+    // 1. 保留原有验证逻辑（姓名、手机号、图片）
+    const name = sanitizeInput(document.getElementById('name').value.trim());
+    const phone = sanitizeInput(document.getElementById('phone').value.trim());
+    const remark = sanitizeInput(document.getElementById('remark').value.trim());
+    const phoneReg = /^[689]\d{7}$/;
+    if (!name) { alert('請輸入聯繫人姓名！'); return; }
+    if (!phone || !phoneReg.test(phone)) { alert('請輸入正確的澳門手機號！'); return; }
+    if (previewImg.style.display === 'none' && !Array.from(presetImgItems).some(i => i.classList.contains('active'))) {
+        alert('請選擇/上傳圖片！'); return;
+    }
 
-        // 支付按钮点击事件
-        payBtn.addEventListener('click', () => {
-            // 获取表单输入值（去除首尾空格）
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            // 判断是否已选择/上传图片
-            const hasImage = previewImg.style.display === 'block';
-            
-            // 验证是否至少选中1个商品（含AI生成图片）
-            if (selectedPrices.length === 0) {
-                alert('請至少選擇一個定制套餐（可選AI生成圖片）！');
-                return;
-            }
+    // 2. 获取订单信息（用于预填到表单，提升用户体验）
+    const selectedProduct = Array.from(productItems).find(i => i.classList.contains('active'))?.dataset.name || '';
+    const spec = document.getElementById('spec1').checked ? '常規雕刻' : '精細雕刻';
+    const totalPrice = document.getElementById('total-price').textContent.replace('MOP ', '');
 
-            // 验证姓名：不能为空
-            if (!name) {
-                alert('請輸入聯繫人姓名！');
-                return; // 终止执行
-            }
-
-            // 验证澳门手机号：8位数字
-            const phoneReg = /^\d{8}$/;
-            if (!phone || !phoneReg.test(phone)) {
-                alert('請輸入正確的8位澳門手機號！');
-                return; // 终止执行
-            }
-
-            // 验证是否选择/上传图片
-            if (!hasImage) {
-                alert('請選擇Q版/澳門圖案或上傳自定義圖片！');
-                return; // 终止执行
-            }
+    // 3. 跳转到表单页面（预填订单信息，替换为你的表单链接）
+    const formUrl = `<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf2fXa1E_z0LehPCeXjkN7gwpy07fswe031bXA7RGC7r_Lptw/viewform?embedded=true" width="640" height="517" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>`;
+    window.open(formUrl, '_blank'); // 新窗口打开表单
+});
 
             // 所有验证通过，显示支付弹窗
             payModal.style.display = 'flex';
@@ -886,6 +869,7 @@
     </script>
 </body>
 </html>
+
 
 
 
