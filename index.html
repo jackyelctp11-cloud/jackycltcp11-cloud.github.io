@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<!-- 声明文档类型为HTML5 -->
+<html lang="zh-CN">
+<!-- 设置网页语言为简体中文（适配澳门繁体习惯，文本内已做繁体处理） -->
+<head>
+    <!-- 元数据标签：字符编码为UTF-8，避免中文乱码 -->
+    <meta charset="UTF-8">
+    <!-- 视口设置：适配移动端，宽度=device-width（跟随设备宽度），初始缩放1.0 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 网页标题：显示在浏览器标签栏 -->
+    <title> MacLazer定制 - Q版定制專區</title>
+    <!-- 样式表：所有页面样式都写在<style>标签内 -->
+    <!-- 跨域/移动端兼容补充 -->
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <style>
+        /* 定义CSS变量：澳门特色配色，方便全局统一调用 */
+        :root {
+            --macau-red: #C8102E; /* 澳门红：主强调色 */
+            --macau-green: #009B48; /* 澳门绿：成功/选中色 */
+            --macau-yellow: #FFD700; /* 澳门金：价格/高亮色 */
+            --macau-blue: #0066B3; /* 澳门蓝：主色调 */
+            --macau-gray: #F5F5F5; /* 底色：页面背景 */
+            --macau-dark: #333333; /* 文字色：主要文本 */
+        }
+
+        /* 全局样式重置：清除所有元素默认的margin/padding，统一盒模型 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* 盒模型：宽高包含边框和内边距 */
+            font-family: "澳門繁體", "Microsoft JhengHei", sans-serif; /* 字体：适配澳门繁体显示 */
+        }
+
+        /* 页面主体样式 */
+        body {
+            background-color: var(--macau-gray); /* 背景色：使用定义的澳门灰变量 */
+            padding: 15px; /* 内边距：避免内容贴边 */
+            /* 背景图案：葡式花纹SVG，低透明度作为装饰 */
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%230066b3' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            -webkit-text-size-adjust: 100%; /* 禁止移动端文字缩放 */
+            -ms-text-size-adjust: 100%;
+            touch-action: manipulation; /* 提升移动端点击响应 */
+
+        }
+
+        /* 主容器样式：内容居中，限定最大宽度，美化样式 */
+        .container {
+            max-width: 600px; /* 最大宽度：适配手机横屏/平板 */
+            margin: 0 auto; /* 水平居中 */
+            background: white; /* 背景白：突出内容 */
+            border-radius: 16px; /* 圆角：葡式风格 */
+            padding: 25px; /* 内边距：内容呼吸空间 */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); /* 阴影：提升层次感 */
+            border: 1px solid rgba(0, 102, 179, 0.1); /* 浅边框：增加精致感 */
+            position: relative; /* 相对定位：用于伪元素定位 */
+            overflow: hidden; /* 溢出隐藏：避免伪元素超出 */
+        }
+
+        /* 容器顶部装饰条：澳门四色渐变 */
+        .container::before {
+            content: ""; /* 伪元素必须有content */
+            position: absolute; /* 绝对定位：贴容器顶部 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--macau-red), var(--macau-green), var(--macau-yellow), var(--macau-blue)); /* 澳门色渐变 */
+        }
+
+        /* 标题样式 */
+        h1 {
+            text-align: center; /* 文字居中 */
+            color: var(--macau-dark); /* 文字色：澳门深灰 */
+            margin-bottom: 25px; /* 下外边距：与下方内容分隔 */
+            font-size: 28px; /* 字体大小 */
+            position: relative; /* 相对定位：用于下划线伪元素 */
+            padding-bottom: 15px; /* 下内边距：给下划线留空间 */
+        }
+
+        /* 标题下划线：渐变装饰 */
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%); /* 水平居中 */
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--macau-red), var(--macau-blue)); /* 红蓝渐变 */
+            border-radius: 3px; /* 下划线圆角 */
+        }
+
+        /* 标题内澳门emoji样式 */
+        h1 span {
+            color: var(--macau-red);
+            font-size: 32px;
+        }
+
+        /* 商品列表容器 */
+        .product-list {
+            margin-bottom: 30px; /* 下外边距：分隔区域 */
+        }
+
+        /* 单个商品项样式 */
+        .product-item {
+            padding: 18px; /* 内边距：内容不贴边 */
+            border: 2px solid #eee; /* 浅边框：未选中状态 */
+            border-radius: 12px; /* 圆角：葡式风格 */
+            margin-bottom: 12px; /* 下外边距：商品项之间分隔 */
+            cursor: pointer; /* 鼠标指针：手型，提示可点击 */
+            transition: all 0.3s ease; /* 过渡动画：所有属性变化0.3秒完成 */
+            background: white; /* 背景白 */
+            position: relative; /* 相对定位：用于选中勾号 */
+            overflow: hidden; /* 溢出隐藏：hover伪元素不超出 */
+        }
+
+        /* 商品项hover伪元素：背景渐变动画 */
+        .product-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0; /* 初始宽度0：hover时展开 */
+            height: 100%;
+            background: rgba(0, 102, 179, 0.05); /* 浅蓝背景 */
+            transition: width 0.3s ease; /* 宽度过渡动画 */
+        }
+
+        /* hover时展开伪元素宽度 */
+        .product-item:hover::before {
+            width: 100%;
+        }
+
+        /* 商品项选中状态 */
+        .product-item.active {
+            border-color: var(--macau-blue); /* 边框：澳门蓝 */
+            background-color: rgba(0, 102, 179, 0.08); /* 背景：浅蓝 */
+        }
+
+        /* 选中状态勾号 */
+        .product-item.active::after {
+            content: "✓"; /* 勾号符号 */
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            color: var(--macau-green); /* 颜色：澳门绿 */
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* 商品标题样式 */
+        .product-item h3 {
+            color: var(--macau-dark);
+            font-size: 19px;
+            margin-bottom: 8px;
+            display: flex; /* flex布局：图标+文字对齐 */
+            align-items: center; /* 垂直居中 */
+            gap: 8px; /* 图标与文字间距 */
+        }
+
+        /* 商品标题前emoji图标 */
+        .product-item h3::before {
+            content: "🎨";
+            font-size: 20px;
+        }
+
+        /* 商品描述样式 */
+        .product-item p {
+            color: #666; /* 浅灰色：次要文本 */
+            font-size: 14px;
+            line-height: 1.5; /* 行高：提升可读性 */
+        }
+
+        /* 内定图片区域容器 */
+        .preset-img-section {
+            margin-bottom: 30px;
+        }
+
+        /* 区域标题通用样式（上传/规格/价格） */
+        .upload-title {
+            font-size: 18px;
+            color: var(--macau-dark);
+            margin-bottom: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 区域标题前emoji图标 */
+        .upload-title::before {
+            content: "🖼️";
+            font-size: 20px;
+        }
+
+        /* 内定图片容器：flex换行布局 */
+        .preset-img-container {
+            display: flex;
+            flex-wrap: wrap; /* 换行：适配小屏幕 */
+            gap: 12px; /* 图片间距 */
+            margin-bottom: 12px;
+        }
+
+        /* 单个内定图片项 */
+        .preset-img-item {
+            width: 85px;
+            height: 85px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            overflow: hidden; /* 溢出隐藏：图片不超出 */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 轻微阴影：提升层次感 */
+        }
+
+        /* 内定图片hover效果：缩放+加深阴影 */
+        .preset-img-item:hover {
+            transform: scale(1.05); /* 缩放1.05倍 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 内定图片选中状态 */
+        .preset-img-item.active {
+            border-color: var(--macau-red) !important; /* 澳门红边框 */
+            box-shadow: 0 0 0 2px rgba(200, 16, 46, 0.2); /* 外发光效果 */
+        }
+
+        /* 内定图片样式：覆盖容器 */
+        .preset-img-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 覆盖：保持比例，裁剪超出部分 */
+            transition: transform 0.3s ease; /* 缩放过渡 */
+        }
+
+        /* 内定图片hover缩放 */
+        .preset-img-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* 内定图片区域提示文字 */
+        .preset-img-section p {
+            font-size: 13px;
+            color: #888;
+            line-height: 1.4;
+        }
+
+        /* 图片上传区域容器 */
+        .upload-section {
+            margin-bottom: 30px;
+        }
+
+        /* 隐藏原生文件上传按钮 */
+        #file-upload {
+            display: none;
+        }
+
+        /* 自定义上传按钮样式 */
+        .upload-btn {
+            display: inline-block; /* 行内块：可设置宽高 */
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--macau-blue), #0077cc); /* 蓝渐变 */
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 102, 179, 0.2); /* 阴影 */
+        }
+
+        /* 上传按钮hover效果：上移+加深阴影 */
+        .upload-btn:hover {
+            transform: translateY(-2px); /* 上移2px */
+            box-shadow: 0 6px 8px rgba(0, 102, 179, 0.3);
+        }
+
+        /* 图片预览容器 */
+        .preview-container {
+            width: 100%;
+            height: 220px;
+            border: 2px dashed #ddd; /* 虚线边框：提示可上传 */
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: rgba(248, 249, 250, 0.5); /* 浅灰背景 */
+            transition: all 0.3s ease;
+        }
+
+        /* 预览容器hover效果：边框变色+背景加深 */
+        .preview-container:hover {
+            border-color: var(--macau-blue);
+            background: rgba(248, 249, 250, 0.8);
+        }
+
+        /* 预览图片样式：默认隐藏 */
+        .preview-img {
+            max-width: 100%;
+            max-height: 100%;
+            display: none; /* 默认隐藏，上传/选中图片后显示 */
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 预览区提示文字 */
+        .preview-tip {
+            color: #999;
+            font-size: 15px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* 规格选择区域容器 */
+        .spec-section {
+            margin-bottom: 30px;
+        }
+
+        /* 单个规格选项 */
+        .spec-option {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 自定义单选框样式：隐藏原生样式 */
+        .spec-option input[type="radio"] {
+            -webkit-appearance: none; /* 移除webkit默认样式 */
+            appearance: none; /* 移除默认样式 */
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%; /* 圆形 */
+            outline: none; /* 移除聚焦轮廓 */
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* 单选框选中状态 */
+        .spec-option input[type="radio"]:checked {
+            border-color: var(--macau-red);
+            background-color: var(--macau-red);
+        }
+
+        /* 单选框选中后内部白点 */
+        .spec-option input[type="radio"]:checked::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 居中 */
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        /* 单选框标签样式 */
+        .spec-option label {
+            margin-left: 10px;
+            color: #666;
+            font-size: 15px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        /* 选中状态标签样式：变红+加粗 */
+        .spec-option input[type="radio"]:checked + label {
+            color: var(--macau-red);
+            font-weight: 500;
+        }
+
+        /* 价格区域容器 */
+        .price-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); /* 金渐变背景 */
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.2); /* 浅金边框 */
+        }
+
+        /* 价格标题样式 */
+        .price-title {
+            font-size: 18px;
+            color: var(--macau-dark);
+            margin-bottom: 10px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 价格标题前emoji */
+        .price-title::before {
+            content: "💰";
+            font-size: 20px;
+        }
+
+        /* 价格数值样式：放大+红色 */
+        .price-value {
+            font-size: 24px;
+            color: var(--macau-red);
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(200, 16, 46, 0.1); /* 文字阴影 */
+        }
+
+        /* 订单表单容器 */
+        .order-form {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(0, 102, 179, 0.1); /* 上边框：分隔区域 */
+        }
+
+        /* 单个表单项 */
+        .form-item {
+            margin-bottom: 18px;
+        }
+
+        /* 表单标签 */
+        .form-item label {
+            display: block; /* 块级：独占一行 */
+            margin-bottom: 8px;
+            color: var(--macau-dark);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* 表单输入框 */
+        .form-item input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        /* 输入框聚焦状态：边框变蓝+外发光 */
+        .form-item input:focus {
+            outline: none;
+            border-color: var(--macau-blue);
+            box-shadow: 0 0 0 3px rgba(0, 102, 179, 0.1);
+        }
+
+        /* 支付按钮区域 */
+        .pay-section {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* 支付按钮样式 */
+        .pay-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--macau-green), #00aa55); /* 绿渐变 */
+            color: white;
+            border: none; /* 移除默认边框 */
+            border-radius: 12px;
+            font-size: 19px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 12px rgba(0, 155, 72, 0.2);
+        }
+
+        /* 支付按钮hover：上移+加深阴影+渐变变色 */
+        .pay-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 155, 72, 0.3);
+            background: linear-gradient(135deg, #00aa55, #00bb66);
+        }
+
+        /* 支付按钮点击:active：复位 */
+        .pay-btn:active {
+            transform: translateY(0);
+        }
+
+        /* 支付弹窗：默认隐藏，全屏遮罩 */
+        .pay-modal {
+            display: none; /* 默认隐藏 */
+            position: fixed; /* 固定定位：覆盖整个屏幕 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75); /* 半透明黑背景 */
+            z-index: 999; /* 最高层级：覆盖所有内容 */
+            align-items: center;
+            justify-content: center;
+            padding: 20px; /* 内边距：弹窗不贴边 */
+        }
+
+        /* 弹窗内容容器 */
+        .modal-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            animation: modalPop 0.3s ease; /* 弹窗弹出动画 */
+        }
+
+        /* 弹窗弹出动画：从缩放0.8到1，透明度从0到1 */
+        @keyframes modalPop {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* 弹窗标题 */
+        .modal-title {
+            font-size: 20px;
+            color: var(--macau-dark);
+            margin-bottom: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* 弹窗标题前澳门emoji */
+        .modal-title::before {
+            content: "🇲pay";
+            font-size: 22px;
+        }
+
+        /* 收款码容器 */
+        .qrcode-container {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 20px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 收款码提示文字 */
+        .qrcode-tip {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* 关闭弹窗按钮 */
+        .close-modal {
+            padding: 10px 20px;
+            background: #f5f5f5;
+            color: var(--macau-dark);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        /* 关闭按钮hover：背景变灰+文字变红 */
+        .close-modal:hover {
+            background: #eee;
+            color: var(--macau-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- 主容器：所有内容包裹在其中 -->
+    <div class="container">
+        <!-- 页面标题：加入澳门emoji -->
+        <h1>澳門<span>MacLazer</span>定制 - Q版專區</h1>
+
+        <!-- 商品选择区：新增3个Q版套餐 -->
+        <div class="product-list">
+            <!-- 原有套餐 -->
+            <div class="product-item" data-price="20">
+                <h3>钥匙扣雕刻 20MOP</h3>
+                <p>金屬/亞克力鑰匙扣，單面雕刻（澳門特色款式可選）</p>
+            </div>
+
+            <div class="product-item" data-price="50">
+                <h3>木牌/亞克力牌 50MOP</h3>
+                <p>10*10cm以內，定制文字/圖案（大三巴、葡式花紋等）</p>
+            </div>
+        <!-- 新增：AI生成图片购买选项 -->
+            <div class="product-item" data-price="15">
+                <h3>AI生成圖片定制 15MOP</h3>
+                <p>根據描述生成專屬Q版/澳門特色圖片，僅用於雕刻</p>
+            </div>
+            <!-- 新增Q版套餐1：Q版表情包套装 -->
+            <div class="product-item active" data-price="100">
+                <h3>Q版表情包套裝（9個） 100MOP</h3>
+                <p>真人→9個不同表情Q版，適用於雕刻鑰匙扣/手機殼</p>
+            </div>
+            <!-- 新增Q版套餐2：情侣姓名Q版艺术字 -->
+            <div class="product-item" data-price="80">
+                <h3>情侶姓名Q版藝術字 80MOP</h3>
+                <p>Q版人像+姓名藝術字，用途：頭像、壁紙、禮物雕刻</p>
+            </div>
+            <!-- 新增Q版套餐3：澳门限定Q版证件照 -->
+            <div class="product-item" data-price="60">
+                <h3>澳門限定Q版證件照 60MOP</h3>
+                <p>卡通化證件照（乾淨、可愛、正式），學生超愛！</p>
+            </div>
+        </div>
+
+        <!-- 内定图案选择区：Q版相关 -->
+        <div class="preset-img-section">
+            <div class="upload-title">選擇Q版/澳門特色內定圖案</div>
+            <div class="preset-img-container">
+                <!-- 可自行替换为Q版/澳门相关图片 -->
+                <div class="preset-img-item">
+                    <img src="https://1.png" alt="Q版表情包樣式" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="preset-img-item">
+                    <img src="https://2.jpeg" alt="情侶Q版藝術字" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="preset-img-item">
+                    <img src="https://3.jpg" alt="Q版證件照樣式" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="preset-img-item">
+                    <img src="https://4.webp" alt="澳門大三巴Q版" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+            <p>點擊圖案即可選中，也可上傳自定義圖片（支持Q版/澳門特色設計）</p>
+        </div>
+
+        <!-- 图片上传区 -->
+        <div class="upload-section">
+            <div class="upload-title">上傳需要雕刻的圖片</div>
+            <!-- 自定义上传按钮：关联原生file输入框 -->
+            <label for="file-upload" class="upload-btn">選擇圖片</label>
+            <!-- 原生文件上传输入框：仅接受图片类型 -->
+            <input type="file" id="file-upload" accept="image/*">
+            <!-- 图片预览容器 -->
+            <div class="preview-container">
+                <img id="preview-img" class="preview-img" src="" alt="預覽圖">
+                <span class="preview-tip" id="preview-tip">未上傳圖片，可選擇Q版/澳門特色圖案或上傳自定義圖片</span>
+            </div>
+        </div>
+
+        <!-- 规格选择区：适配Q版雕刻 -->
+        <div class="spec-section">
+            <div class="upload-title">雕刻規格</div>
+            <div class="spec-option">
+                <input type="radio" name="spec" id="spec1" value="0" checked>
+                <label for="spec1">常規雕刻 (不加價)</label>
+            </div>
+            <div class="spec-option">
+                <input type="radio" name="spec" id="spec2" value="10">
+                <label for="spec2">精細雕刻 (+10元，適合Q版細節)</label>
+            </div>
+        </div>
+
+        <!-- 价格展示区 -->
+        <div class="price-section">
+            <div class="price-title">總價 (MOP)</div>
+            <div class="price-value" id="total-price">0 MOP</div>
+        </div>
+
+        <!-- 订单信息区 -->
+        <div class="order-form">
+            <div class="form-item">
+                <label for="name">聯繫人</label>
+                <input type="text" id="name" placeholder="請輸入您的姓名">
+            </div>
+            <div class="form-item">
+                <label for="phone">澳門聯繫電話</label>
+                <input type="tel" id="phone" placeholder="請輸入8位澳門手機號">
+            </div>
+            <div class="form-item">
+                <label for="remark">備註 (可選)</label>
+                <input type="text" id="remark" placeholder="Q版要求/雕刻位置/取件時間等">
+            </div>
+        </div>
+
+        <!-- 支付按钮区 -->
+        <div class="pay-section">
+            <button class="pay-btn" id="pay-btn">確認定制並支付</button>
+        </div>
+    </div>
+
+    <!-- 支付弹窗 -->
+    <div class="pay-modal" id="pay-modal">
+        <div class="modal-content">
+            <div class="modal-title">澳門支付 - 掃碼付款</div>
+            <div class="qrcode-container">
+                <!-- 替换为你的收款码图片路径 -->
+                <img src="https://Mpay1.jpg" alt="收款碼" style="width: 100%;">
+            </div>
+            <P></P>
+            <div class="qrcode-tip">支付完成後請聯繫攤主確認 ✅<br>（只支持澳門MPay）</div>
+            <button class="close-modal" id="close-modal">關閉</button>
+        </div>
+    </div>
+
+    <!-- JavaScript逻辑：交互功能 -->
+    <script>
+       // 1. 商品选择逻辑（多选 + 起始价格0）
+        const productItems = document.querySelectorAll('.product-item');
+        // 存储选中的商品价格数组 - 起始为空，价格默认0
+        let selectedPrices = []; 
+
+        // 为每个商品项绑定点击事件（多选逻辑）
+        productItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const currentPrice = parseInt(item.dataset.price);
+                // 判断当前商品是否已选中
+                if (item.classList.contains('active')) {
+                // 取消选中：移除active类 + 从价格数组删除
+                    item.classList.remove('active');
+                    selectedPrices = selectedPrices.filter(price => price !== currentPrice);
+                } else {
+                // 选中：添加active类 + 加入价格数组
+                    item.classList.add('active');
+                    selectedPrices.push(currentPrice);
+                }
+                // 重新计算总价（多选求和）
+                calculateTotalPrice();
+            });
+        });
+
+        // 2. 图片上传预览逻辑
+        // 获取文件上传输入框
+        const fileUpload = document.getElementById('file-upload');
+        // 获取预览图片元素
+        const previewImg = document.getElementById('preview-img');
+        // 获取预览提示文字元素
+        const previewTip = document.getElementById('preview-tip');
+
+        // 监听文件上传输入框的变化事件
+        fileUpload.addEventListener('change', (e) => {
+            // 获取选中的文件
+            const file = e.target.files[0];
+            // 如果有选中文件
+            if (file) {
+                // 创建FileReader对象：用于读取文件内容
+                const reader = new FileReader();
+                // 当文件读取完成时执行
+                reader.onload = (ev) => {
+                    // 设置预览图片的src为文件的Base64编码
+                    previewImg.src = ev.target.result;
+                    // 显示预览图片
+                    previewImg.style.display = 'block';
+                    // 隐藏提示文字
+                    previewTip.style.display = 'none';
+                    // 清除内定图片的选中状态
+                    presetImgItems.forEach(i => i.classList.remove('active'));
+                };
+                // 以DataURL格式读取文件（图片转Base64）
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 3. 内定图片选择逻辑
+        // 获取所有内定图片项
+        const presetImgItems = document.querySelectorAll('.preset-img-item');
+
+        // 为每个内定图片项绑定点击事件
+        presetImgItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // 移除所有内定图片项的选中状态
+                presetImgItems.forEach(i => i.classList.remove('active'));
+                // 为当前点击的图片项添加选中状态
+                item.classList.add('active');
+                // 获取选中图片的src
+                const imgSrc = item.querySelector('img').src;
+                // 设置预览图片的src
+                previewImg.src = imgSrc;
+                // 显示预览图片
+                previewImg.style.display = 'block';
+                // 隐藏提示文字
+                previewTip.style.display = 'none';
+                // 清除文件上传输入框的选中状态
+                fileUpload.value = '';
+            });
+        });
+
+        // 4. 计算总价逻辑（适配多选 + 起始价0）
+        function calculateTotalPrice() {
+            // 获取规格加价
+            const specOptions = document.getElementsByName('spec');
+            let specPrice = 0;
+            for (let option of specOptions) {
+                if (option.checked) {
+                    specPrice = parseInt(option.value); // ✅ 规格加价修改处：0/10/20可改
+                    break;
+                }
+            }
+
+            // 多选总价计算：选中商品价格总和 + 规格加价（规格加价只算1次）
+            const totalProductPrice = selectedPrices.reduce((sum, price) => sum + price, 0);
+            const totalPrice = totalProductPrice + specPrice;
+
+            // 更新显示（MOP为澳门元）
+            document.getElementById('total-price').textContent = `MOP ${totalPrice.toFixed(2)}`;
+            return totalPrice;
+        }
+
+        // 5. 监听规格变化，重新计算价格
+        // 获取所有规格单选框
+        const specRadios = document.getElementsByName('spec');
+        // 为每个单选框绑定变化事件
+        specRadios.forEach(radio => {
+            radio.addEventListener('change', calculateTotalPrice);
+        });
+
+        // 6. 支付弹窗逻辑
+        // 获取支付按钮
+        const payBtn = document.getElementById('pay-btn');
+        // 获取支付弹窗
+        const payModal = document.getElementById('pay-modal');
+        // 获取关闭弹窗按钮
+        const closeModal = document.getElementById('close-modal');
+
+        // 支付按钮点击事件
+        payBtn.addEventListener('click', () => {
+            // 获取表单输入值（去除首尾空格）
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            // 判断是否已选择/上传图片
+            const hasImage = previewImg.style.display === 'block';
+            
+            // 验证是否至少选中1个商品（含AI生成图片）
+            if (selectedPrices.length === 0) {
+                alert('請至少選擇一個定制套餐（可選AI生成圖片）！');
+                return;
+            }
+
+            // 验证姓名：不能为空
+            if (!name) {
+                alert('請輸入聯繫人姓名！');
+                return; // 终止执行
+            }
+
+            // 验证澳门手机号：8位数字
+            const phoneReg = /^\d{8}$/;
+            if (!phone || !phoneReg.test(phone)) {
+                alert('請輸入正確的8位澳門手機號！');
+                return; // 终止执行
+            }
+
+            // 验证是否选择/上传图片
+            if (!hasImage) {
+                alert('請選擇Q版/澳門圖案或上傳自定義圖片！');
+                return; // 终止执行
+            }
+
+            // 所有验证通过，显示支付弹窗
+            payModal.style.display = 'flex';
+        });
+
+        // 关闭弹窗按钮点击事件
+        closeModal.addEventListener('click', () => {
+            payModal.style.display = 'none';
+        });
+
+        // 点击弹窗外部区域关闭弹窗
+        payModal.addEventListener('click', (e) => {
+            // 如果点击的是弹窗背景（而非内容）
+            if (e.target === payModal) {
+                payModal.style.display = 'none';
+            }
+        });
+
+        // 初始化总价为0（页面加载时显示）
+        document.getElementById('total-price').textContent = 'MOP 0.00';
+        // 原有初始化计算保留
+        calculateTotalPrice();
+    </script>
+</body>
+</html>
