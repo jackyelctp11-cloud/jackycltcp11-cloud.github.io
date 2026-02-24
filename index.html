@@ -627,16 +627,16 @@
             <div class="preset-img-container">
                 <!-- 可自行替换为Q版/澳门相关图片 -->
                 <div class="preset-img-item">
-                    <img src="https://jackycltcp11-cloud.github.io/q1.png" alt="Q版表情包樣式" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="1.png" alt="Q版表情包樣式" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div class="preset-img-item">
-                    <img src="https://jackycltcp11-cloud.github.io/q2.jpeg" alt="情侶Q版藝術字" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="2.jpeg" alt="情侶Q版藝術字" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div class="preset-img-item">
-                    <img src="https://jackycltcp11-cloud.github.io/q3.jpg" alt="Q版證件照樣式" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="3.jpg" alt="Q版證件照樣式" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div class="preset-img-item">
-                    <img src="https://jackycltcp11-cloud.github.io/q4.webp" alt="澳門大三巴Q版" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="4.webp" alt="澳門大三巴Q版" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
             </div>
             <p>點擊圖案即可選中，也可上傳自定義圖片（支持Q版/澳門特色設計）</p>
@@ -703,7 +703,7 @@
             <div class="modal-title">澳門支付 - 掃碼付款</div>
             <div class="qrcode-container">
                 <!-- 替换为你的收款码图片路径 -->
-                <img src="https://jackycltcp11-cloud.github.io/mpay_qrcode.jpg" alt="收款碼" style="width: 100%;">
+                <img src="mpay1.jpg" alt="收款碼" style="width: 100%;">
             </div>
             <P></P>
             <div class="qrcode-tip">支付完成後請聯繫攤主確認 ✅<br>（只支持澳門MPay）</div>
@@ -713,21 +713,6 @@
 
     <!-- JavaScript逻辑：交互功能 -->
     <script>
-        // 新增过滤函数（放在JS开头）
-        function sanitizeInput(input) {
-            if (!input) return '';
-            // 转义HTML特殊字符，防止XSS
-            return input.replace(/&/g, '&amp;')
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;')
-                        .replace(/"/g, '&quot;')
-                        .replace(/'/g, '&#039;');
-        }
-
-        // 支付按钮验证时，修改获取输入的代码：
-        const name = sanitizeInput(document.getElementById('name').value.trim());
-        const phone = sanitizeInput(document.getElementById('phone').value.trim());
-        const remark = sanitizeInput(document.getElementById('remark').value.trim());
        // 1. 商品选择逻辑（多选 + 起始价格0）
         const productItems = document.querySelectorAll('.product-item');
         // 存储选中的商品价格数组 - 起始为空，价格默认0
@@ -837,13 +822,13 @@
             radio.addEventListener('change', calculateTotalPrice);
         });
 
-        // 6. 支付弹窗逻辑
         // 获取支付按钮
         const payBtn = document.getElementById('pay-btn');
         // 获取支付弹窗
         const payModal = document.getElementById('pay-modal');
         // 获取关闭弹窗按钮
         const closeModal = document.getElementById('close-modal');
+
         // 支付按钮点击事件
         payBtn.addEventListener('click', () => {
             // 获取表单输入值（去除首尾空格）
@@ -893,11 +878,13 @@
                 payModal.style.display = 'none';
             }
         });
+
+        // 初始化总价为0（页面加载时显示）
+        document.getElementById('total-price').textContent = 'MOP 0.00';
         // 原有初始化计算保留
         calculateTotalPrice();
     </script>
 </body>
-
 </html>
 
 
