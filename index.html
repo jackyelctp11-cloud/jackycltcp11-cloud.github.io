@@ -803,7 +803,7 @@
             payBtn.textContent = "提交中...";
 
             // ↓↓↓ 这里要改！替换为你的后端接口地址 ↓↓↓
-            const response = await fetch('https://你的后端接口域名/api/forward-order', {
+            const response = await fetch('https://maclazer-backend.vercel.app/api/forward-order', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -836,6 +836,7 @@
     </script>
 </body>
 </html>
+
 
 
 
